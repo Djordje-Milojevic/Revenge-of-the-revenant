@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class Pomeranje_igraca : MonoBehaviour
 {
+    public int pokupljeno = 0;
+    public int neprijatelj_h = 100;
     public Rigidbody rb;
     public float napredSila = 0;
     public float stranaSila = 0;
@@ -42,12 +44,25 @@ public class Pomeranje_igraca : MonoBehaviour
             groundNormal = Vector3.up;
         }
     }
-    void OnTriggerEnter (Collider other) 
+    if(other.gameObject.CompareTag("Neprijatelj")) //tag za neprijatelja ako je pronadjen onda skor ide ka gore
     {
-        if (other.gameObject.CompareTag("PickUp")) //samo tag da se stavi na prolaz i da se promeni sa PickUp-opm
-            { 
-                SceneManager.LoadSceneAsync(3);
-            }
+        pokupljeno++;
     }
 
+    if (neprijatelj_h < 1)
+    {
+        other.gameObject.SetActive(false);  // nestaje igrac ako mu helt bude ispod 1 to jest 0
+    }
+
+    if(pokupljeno > br_neprijatelja)
+    {
+        void OnTriggerEnter (Collider other) 
+        {
+            if (other.gameObject.CompareTag("PickUp")) //samo tag da se stavi na prolaz i da se promeni sa PickUp-opm
+                { 
+                    SceneManager.LoadSceneAsync(3);
+                }
+        }
+    }
 }
+
