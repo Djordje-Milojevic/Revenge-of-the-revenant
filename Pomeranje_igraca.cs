@@ -42,6 +42,12 @@ public class Pomeranje_igraca : MonoBehaviour
             groundNormal = Vector3.up;
         }
     }
-    //na triger za portal
-    //SceneManager.LoadSceneAsync(3);
+    void OnTriggerEnter (Collider other) 
+    {
+        if (other.gameObject.CompareTag("PickUp")) //samo tag da se stavi na prolaz i da se promeni sa PickUp-opm
+            { 
+                SceneManager.LoadSceneAsync(3);
+            }
+    }
+
 }
